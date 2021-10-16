@@ -34,7 +34,7 @@ def OneAheadPosCheck(pos,grid,loud):
         or PureLegalPosCheck([pos[0],pos[1]-1],grid,loud))  
 def PureLegalPosCheck(pos, grid, loud):
     return pos[0]>-1 and pos[0]<len(grid) and pos[1]>-1 and pos[1]<len(grid[0]) and grid[pos[0]][pos[1]]==0
-def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalposcheck=OneAheadPosCheck):
+def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalposcheck=PureLegalPosCheck):
     steps=0;
     dirlist=[1,2,3,4] #i know i should use enum but idc
     grid=[]
