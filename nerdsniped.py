@@ -1,17 +1,7 @@
 import random
 from copy import copy
 from tkinter import *
-def main(visualize,x,y,maxsteps):
-    grid=[]
-    for i in range(0,x):
-        grid.append([])
-        for j in range(0,y):
-            grid[i].append(0)
-    currentpos=[x//2,y//2]
-    grid[x//2][y//2]=1;
-    steps=0;
-    dirlist=[1,2,3,4] #i know i should use enum but idc
-    def legalpos(pos):
+def OneAheadPosCheck(pos,grid,loud):
         if(pos[0]<0 or pos[1]<0):
             return False;
         if(pos[0]>len(grid)-1 or pos[1]>len(grid[0])-1):
@@ -22,24 +12,37 @@ def main(visualize,x,y,maxsteps):
             if(grid[pos[0]+1][pos[1]]==0):
                 return True
         except:
-            print("edge hit")
+            if(loud):print("edge hit")
         try:
             if(grid[pos[0]-1][pos[1]]==0):
                 return True
         except:
-            print("edge hit")
+            if(loud):print("edge hit")
         try:
             if(grid[pos[0]][pos[1]+1]==0):
                 return True
         except:
-            print("edge hit")
+            if(loud):print("edge hit")
         try:
             if(grid[pos[0]][pos[1]-1]==0):
                 return True
         except:
-            print("edge hit")
-        
-        
+            if(loud):print("edge hit")
+def PureLegalPosCheck(pos, grid, loud):
+    try:
+        return grid[pos[0]][pos[1]]==0
+    except:
+        return False;
+def RandomWalkNonIntersect(visualize,x,y,maxsteps,loud=False,legalposcheck=OneAheadPosCheck):
+    steps=0;
+    dirlist=[1,2,3,4] #i know i should use enum but idc
+    grid=[]
+    for i in range(0,x):
+        grid.append([])
+        for j in range(0,y):
+            grid[i].append(0)
+    currentpos=[x//2,y//2]
+    grid[x//2][y//2]=1;
     while(steps<maxsteps):
         random.shuffle(dirlist)
         generatedDirection=False;
@@ -59,15 +62,15 @@ def main(visualize,x,y,maxsteps):
             else:
                 #go down
                 possiblenewpos[1]=possiblenewpos[1]-1
-            if(legalpos(possiblenewpos)):
+            if(legalposcheck(possiblenewpos,grid,loud)):
                     currentpos=possiblenewpos
-                    print(currentpos)
+                    if(loud):print(currentpos)
                     
                     generatedDirection=True
                     grid[currentpos[0]][currentpos[1]]=steps+1
                     break;
         if(not generatedDirection):
-            print("stuck")
+            if(loud):print("stuck")
             break;
     if(visualize):
         root=Tk()
@@ -88,4 +91,7 @@ def main(visualize,x,y,maxsteps):
                     entry.insert(END,grid[i][j])
         root.mainloop()
 
-    print("did "+str(steps)+" steps")
+    if(loud):print("did "+str(steps)+" steps")
+    
+    return steps
+
