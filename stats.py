@@ -15,7 +15,7 @@ execend=time.time()
 print("time taken: "+str(execend-execstart))
 print(np.average(stepList))
 # from https://www.kite.com/python/answers/how-to-write-a-list-to-a-file-in-python
-output = open("output.txt", "w")
+output = open("output2electricboogaloo.txt", "w")
 for element in stepList:
     output.write(str(element) + "\n")
 output.close()

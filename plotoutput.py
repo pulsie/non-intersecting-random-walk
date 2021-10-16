@@ -7,6 +7,6 @@ stepVector=[]
 for i in outputstrings:
     stepVector.append(int(i))
 #histo from https://pythonspot.com/matplotlib-histogram/
-num_bins = 100
-n, bins, patches = plt.hist(stepVector, num_bins, facecolor='blue', alpha=0.5)
+num_bins = 1600
+n, bins, patches = plt.hist(stepVector, num_bins, facecolor='blue', alpha=0.5, density=False)
 plt.show()
