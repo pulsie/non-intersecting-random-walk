@@ -21,33 +21,17 @@ def VisualizeGrid(grid,finalpos):
                     entry.insert(END,grid[i][j])
         root.mainloop()
 def OneAheadPosCheck(pos,grid,loud):
-        '''if(pos[0]<0 or pos[1]<0):
-            return False;
-        if(pos[0]>len(grid)-1 or pos[1]>len(grid[0])-1):
-            return False;
-        if(not grid[pos[0]][pos[1]]==0):
-            return False;
-        try:
-            if(grid[pos[0]+1][pos[1]]==0):
-                return True
-        except:
-            if(loud):print("edge hit")
-        try:
-            if(grid[pos[0]-1][pos[1]]==0):
-                return True
-        except:
-            if(loud):print("edge hit")
-        try:
-            if(grid[pos[0]][pos[1]+1]==0):
-                return True
-        except:
-            if(loud):print("edge hit")
-        try:
-            if(grid[pos[0]][pos[1]-1]==0):
-                return True
-        except:
-            if(loud):print("edge hit")'''
-        return PureLegalPosCheck(pos,grid,loud) and (PureLegalPosCheck([pos[0]+1,pos[1]],grid,loud) or PureLegalPosCheck([pos[0]-1,pos[1]],grid,loud) or PureLegalPosCheck([pos[0],pos[1]+1],grid,loud) or PureLegalPosCheck([pos[0],pos[1]-1],grid,loud))
+        '''
+        return PureLegalPosCheck(pos,grid,loud) and       \
+        (PureLegalPosCheck([pos[0]+1,pos[1]],grid,loud or \
+        PureLegalPosCheck([pos[0]-1,pos[1]],grid,loud) or \
+        PureLegalPosCheck([pos[0],pos[1]+1],grid,loud) or \
+        PureLegalPosCheck([pos[0],pos[1]-1],grid,loud)))'''
+        return PureLegalPosCheck(pos,grid,loud)             \
+        and (PureLegalPosCheck([pos[0]+1,pos[1]],grid,loud) \
+        or PureLegalPosCheck([pos[0]-1,pos[1]],grid,loud)   \
+        or PureLegalPosCheck([pos[0],pos[1]+1],grid,loud)   \
+        or PureLegalPosCheck([pos[0],pos[1]-1],grid,loud))  
 def PureLegalPosCheck(pos, grid, loud):
     return pos[0]>-1 and pos[0]<len(grid) and pos[1]>-1 and pos[1]<len(grid[0]) and grid[pos[0]][pos[1]]==0
 def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalposcheck=OneAheadPosCheck):
