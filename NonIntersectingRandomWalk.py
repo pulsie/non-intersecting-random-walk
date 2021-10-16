@@ -78,5 +78,5 @@ def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalp
 
     if(loud):print("did "+str(steps)+" steps")
     
-    return [grid,steps]
+    return [grid,copy(currentpos),steps]
 
