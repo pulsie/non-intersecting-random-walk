@@ -1,16 +1,15 @@
 import random
 from copy import copy
 from tkinter import *
-def main(visualize):
+def main(visualize,x,y,maxsteps):
     grid=[]
-    for i in range(0,101):
+    for i in range(0,x):
         grid.append([])
-        for j in range(0,101):
+        for j in range(0,y):
             grid[i].append(0)
-    currentpos=[50,50]
-    grid[50][50]=1;
-    steps=1;
-    maxsteps=30;
+    currentpos=[x//2,y//2]
+    grid[x//2][y//2]=1;
+    steps=0;
     dirlist=[1,2,3,4] #i know i should use enum but idc
     def legalpos(pos):
         if(pos[0]<0 or pos[1]<0):
@@ -41,7 +40,7 @@ def main(visualize):
             print("edge hit")
         
         
-    while(True):
+    while(steps<maxsteps):
         random.shuffle(dirlist)
         generatedDirection=False;
         steps=steps+1
@@ -65,7 +64,7 @@ def main(visualize):
                     print(currentpos)
                     
                     generatedDirection=True
-                    grid[currentpos[0]][currentpos[1]]=steps
+                    grid[currentpos[0]][currentpos[1]]=steps+1
                     break;
         if(not generatedDirection):
             print("stuck")
@@ -89,4 +88,4 @@ def main(visualize):
                     entry.insert(END,grid[i][j])
         root.mainloop()
 
-    print("lost after"+str(steps))
+    print("did "+str(steps)+" steps")
