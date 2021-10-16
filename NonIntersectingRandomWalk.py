@@ -1,6 +1,25 @@
 import random
 from copy import copy
 from tkinter import *
+def VisualizeGrid(grid,finalpos):
+        #https://www.geeksforgeeks.org/create-table-using-tkinter/ was useful
+        root=Tk()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                
+                if(i==finalpos[0] and j==finalpos[1]):
+                    entry=Entry(root,fg='red')
+                    entry.grid(row=i, column=j)
+                    entry.insert(END,"FINAL")
+                elif(grid[i][j]==0):
+                    entry=Entry(root,fg='white')
+                    entry.grid(row=i, column=j)
+                    entry.insert(END,"")
+                else:
+                    entry=Entry(root,fg='green')
+                    entry.grid(row=i, column=j)
+                    entry.insert(END,grid[i][j])
+        root.mainloop()
 def OneAheadPosCheck(pos,grid,loud):
         if(pos[0]<0 or pos[1]<0):
             return False;
@@ -29,11 +48,8 @@ def OneAheadPosCheck(pos,grid,loud):
         except:
             if(loud):print("edge hit")
 def PureLegalPosCheck(pos, grid, loud):
-    try:
-        return grid[pos[0]][pos[1]]==0
-    except:
-        return False;
-def RandomWalkNonIntersect(visualize,x,y,maxsteps,loud=False,legalposcheck=OneAheadPosCheck):
+    return pos[0]>-1 and pos[0]<len(grid) and pos[1]>-1 and pos[1]<len(grid[0]) and grid[pos[0]][pos[1]]==0
+def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalposcheck=OneAheadPosCheck):
     steps=0;
     dirlist=[1,2,3,4] #i know i should use enum but idc
     grid=[]
@@ -73,23 +89,7 @@ def RandomWalkNonIntersect(visualize,x,y,maxsteps,loud=False,legalposcheck=OneAh
             if(loud):print("stuck")
             break;
     if(visualize):
-        root=Tk()
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                
-                if(i==currentpos[0] and j==currentpos[1]):
-                    entry=Entry(root,fg='red')
-                    entry.grid(row=i, column=j)
-                    entry.insert(END,"FINAL")
-                elif(grid[i][j]==0):
-                    entry=Entry(root,fg='white')
-                    entry.grid(row=i, column=j)
-                    entry.insert(END,"")
-                else:
-                    entry=Entry(root,fg='green')
-                    entry.grid(row=i, column=j)
-                    entry.insert(END,grid[i][j])
-        root.mainloop()
+        VisualizeGrid(grid,currentpos)
 
     if(loud):print("did "+str(steps)+" steps")
     
