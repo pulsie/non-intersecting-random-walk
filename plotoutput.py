@@ -3,14 +3,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 with open("output.txt") as f:
     outputstrings = f.readlines()
-with open("output2electricboogaloo.txt") as f2:
+with open("output_smartalgo.txt") as f2:
     outputstrings2 = f2.readlines()
-stepVector=[]
+stepVector1=[]
+stepVector2=[]
 for i in outputstrings:
-    stepVector.append(int(i))
+    stepVector1.append(int(i))
 for i in outputstrings2:
-    stepVector.append(int(i))
-#histo from https://pythonspot.com/matplotlib-histogram/
-num_bins = range(0,600,5)
-n, bins, patches = plt.hist(stepVector, num_bins, facecolor='blue', alpha=0.5, density=False)
+    stepVector2.append(int(i))
+bins = range(0,400,5)
+fig, axs = plt.subplots(1, 2, sharey=True, tight_layout=True)
+axs[0].hist(stepVector1, bins=bins)
+axs[1].hist(stepVector2, bins=bins)
 plt.show()
+
