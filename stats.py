@@ -7,7 +7,7 @@ stepList=[]
 execstart=time.time()
 for i in range(0,100000):
     start=time.time()
-    stepList.append(RandomWalkNonIntersect(False,1000,1000,loud=False,legalposcheck=OneAheadPosCheck)[2])
+    stepList.append(RandomWalkNonIntersect(False,2000,2000,loud=False,legalposcheck=OneAheadPosCheck)[2])
     end=time.time()
     print(str(end-start)+"time")
     print(i)
