@@ -1,12 +1,12 @@
 import random
 from copy import copy
 from tkinter import *
-def VisualizeGrid(grid,finalpos):
+def VisualizeGrid(grid,finalpos,loud=False):
     #https://www.geeksforgeeks.org/create-table-using-tkinter/ was useful
     root=Tk()
     for i in range(len(grid)):
         for j in range(len(grid[0])):
-            
+            if(loud):print("adding "+str(i)+","+str(j))
             if(i==finalpos[0] and j==finalpos[1]):
                 entry=Entry(root,fg='red')
                 entry.grid(row=i, column=j)
@@ -56,6 +56,7 @@ def RandomWalkNonIntersect(visualize,x,y,maxsteps=float("inf"),loud=False,legalp
             grid[i].append(0)
     currentpos=[x//2,y//2]
     grid[x//2][y//2]=1;
+    if(loud):print(str(len(grid))+","+str(len(grid[0])))
     while(steps<maxsteps):
         random.shuffle(dirlist)
         generatedDirection=False;

@@ -1,6 +1,7 @@
 from collections import Counter
 def findColinearLineLength(points):
-    longestLineLengthAllPts=0
+    lineLengths=[]
+    #longestLineLength=0;
     for pt in points:
         counter=Counter({})
         for pt2 in points:
@@ -12,6 +13,6 @@ def findColinearLineLength(points):
                 slope=(pt2[1]-pt[1])/(pt2[0]-pt[0])
             counter[slope]+=1
         longestLineLength=counter.most_common(1)[0][1]+1
-        if(longestLineLengthAllPts<longestLineLength):
-            longestLinelengthAllPts=longestLineLength
-    return longestLineLength
+        print(longestLineLength)
+        lineLengths.append(longestLineLength)
+    return max(lineLengths)
